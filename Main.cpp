@@ -21,7 +21,7 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
-
+const int TAILLE = 50;
 //------------------------------------------------------------------ Types
 
 //---------------------------------------------------- Variables statiques
@@ -30,9 +30,9 @@ using namespace std;
 TrajetCompose* creerTrajetCompose() 
 {
     int nbTrajets;
-    char *dep = new char [50];
-    char *arr = new char [50];
-    char *transport = new char [50];
+    char dep [TAILLE];
+    char arr [TAILLE];
+    char transport [TAILLE];
     TrajetCompose *t = new TrajetCompose();
     cout << "Veuillez entrer le nombre de trajets (simple) constituant votre trajet composé : ";
     cin >> nbTrajets;
@@ -50,9 +50,6 @@ TrajetCompose* creerTrajetCompose()
         TrajetSimple *ts = new TrajetSimple(dep, arr, transport);
         t->Ajouter(ts);
     }
-    delete [] dep;
-    delete [] arr;
-    delete [] transport;
     return t;
 }
 
@@ -65,9 +62,9 @@ static void menu ( )
 //
 {
     Catalogue *c = new Catalogue();
-    char *dep = new char [50];
-    char *arr = new char [50];
-    char *transport = new char [50];
+    char dep [TAILLE];
+    char arr [TAILLE];
+    char transport [TAILLE];
     while(1)
     {
         cout << "Menu: " << endl;
@@ -83,9 +80,6 @@ static void menu ( )
             case 0:
                 cout << "Au revoir" << endl;
                 delete c;
-                delete[] dep;
-                delete[] arr;
-                delete[] transport;
                 return; 
             case 1: 
             {
