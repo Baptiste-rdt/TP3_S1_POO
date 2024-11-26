@@ -17,5 +17,5 @@ $(EXE) : $(OBJETS)
 # cible de nettoyage
 clean : 
 	@echo "Nettoyage"
-	rm -f $(OBJETS) core
+	rm -f $(OBJETS) $(EXE) core
 
