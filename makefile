@@ -19,3 +19,7 @@ clean :
 	@echo "Nettoyage"
 	rm -f $(OBJETS) $(EXE) core
 
+# cible pour valgrind
+valgrind: $(EXE)
+	@echo "Exécution de Valgrind pour vérifier les fuites de mémoire"
+	valgrind --leak-check=full ./$(EXE)
