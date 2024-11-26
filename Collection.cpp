@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Réalisation de la classe <Collection> (fichier ${file_name}) -------
+//---------- Réalisation de la classe <Collection> (fichier Collection.cpp) -------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -19,7 +19,7 @@ using namespace std;
 #include "TrajetCompose.h"
 #include "TrajetSimple.h"
 #include <cstring>
-
+#include <fstream>
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -43,6 +43,9 @@ void Collection::Ajouter (Trajet *t)
 } 
 
 const Collection* Collection::RechercherTrajet(const char* dep, const char* arr) const
+// Algorithme :
+//      On parcourt la collection et on ajoute les trajets correspondants à la recherche dans une nouvelle collection
+//      On retourne cette nouvelle collection
 {
     Collection *resultats = new Collection();
     for (int i = 0; i < nbTrajets; i++) {
@@ -62,6 +65,8 @@ const Collection* Collection::RechercherTrajet(const char* dep, const char* arr)
 }
 
 void Collection::Afficher(int affichage) const
+// Algorithme :
+//      On parcourt la collection et on affiche chaque trajet
 {
     for (int i = 0; i < nbTrajets; i++) {
         if (affichage == 0) cout << endl << "Trajet n°" << i+1 << " : " << endl;
@@ -72,17 +77,23 @@ void Collection::Afficher(int affichage) const
 }
 
 bool Collection::EstVide() const 
+// Algorithme :
+//      Si le nombre de trajets est nul, la collection est vide
 {
     return (nbTrajets == 0 ? true : false);
 }
 
 const char* Collection::GetPremiereVille() 
+// Algorithme :
+//      On retourne la ville de départ du premier trajet de la collection
 {
     if (nbTrajets == 0) return NULL;
     return trajets[0]->GetVilleDep();
 }
 
 const char* Collection::GetDerniereVille() 
+// Algorithme :
+//      On retourne la ville d'arrivée du dernier trajet de la collection
 {
     if (nbTrajets == 0) return NULL;
     return trajets[nbTrajets - 1]->GetVilleArr();

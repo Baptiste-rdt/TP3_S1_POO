@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Interface de la classe <Collection> (fichier ${file_name}) ------
+//---------- Interface de la classe <Collection> (fichier Collection.h) ------
 #if ! defined ( COLLECTION )
 #define COLLECTION
 
