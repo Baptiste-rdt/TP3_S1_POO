@@ -12,14 +12,12 @@
 //-------------------------------------------------------- Include systéme
 using namespace std;
 #include <iostream>
-
+#include <cstring>
 //------------------------------------------------------ Include personnel
 #include "Collection.h"
 #include "Trajet.h"
 #include "TrajetCompose.h"
 #include "TrajetSimple.h"
-#include <cstring>
-#include <fstream>
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC

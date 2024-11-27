@@ -65,6 +65,7 @@ static void menu ( )
     char dep [TAILLE];
     char arr [TAILLE];
     char transport [TAILLE];
+
     while(1)
     {
         cout << "Menu: " << endl;
@@ -72,6 +73,7 @@ static void menu ( )
         cout << "\t2: Ajouter un trajet compose" << endl;
         cout << "\t3: Afficher le catalogue" << endl;
         cout << "\t4: Rechercher un trajet" << endl;
+        cout << "\t5: Sauvegarder le catalogue" << endl;
         cout << "\t0: Quitter" << endl;
         int choix;
         cin >> choix;
@@ -116,6 +118,11 @@ static void menu ( )
                 cout << (coll->EstVide() ? "Aucun trajet ne correspond à votre demande" : "Voici les différents trajets correspondants à votre recherche : ") << endl << endl;
                 coll->Afficher();
                 delete coll;
+                break;
+            }
+            case 5:
+            {
+                c->Sauvegarder();
                 break;
             }
             default:

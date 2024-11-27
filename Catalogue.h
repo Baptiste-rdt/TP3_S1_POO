@@ -29,6 +29,10 @@ class Catalogue
  
     public:
     //----------------------------------------------------- Méthodes publiques
+        void Sauvegarder();
+        // Mode d'emploi :
+        //      Sauvegarde le catalogue dans un fichier texte
+
         void Afficher();
         // Mode d'emploi :
         //      Affiche un catalogue à l'écran (liste de tous les trajets saisis)
