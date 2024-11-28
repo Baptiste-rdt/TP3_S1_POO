@@ -39,6 +39,26 @@ const Collection* Catalogue::RechercherTrajet(const char* dep, const char* arr)
     return resultats;
 }
 
+void Catalogue::ImporterTouteSauvegarde()
+{
+    c->ImporterTouteSauvegarde();
+}
+
+void Catalogue::ImporterTypeSauvegarde(const int type)
+{
+    c->ImporterTypeSauvegarde(type);
+}
+
+void Catalogue::ImporterVilleSauvegarde(const char* depart, const char* arrivee)
+{
+    c->ImporterVilleSauvegarde(depart, arrivee);
+}
+
+void Catalogue::ImporterSelectionSauvegarde(const int debut, const int fin)
+{
+    c->ImporterSelectionSauvegarde(debut, fin);
+}
+
 //-------------------------------------------- Constructeurs - destructeur
  
 Catalogue::Catalogue ()

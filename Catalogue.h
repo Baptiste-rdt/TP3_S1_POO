@@ -41,7 +41,21 @@ class Catalogue
         // Mode d'emploi : 
         //      Recherche un trajet et renvoie une collection de trajets
 
+        void ImporterTouteSauvegarde();
+        // Mode d'emploi :
+        //      Import de trajets à partir d'un fichier de sauvegarde (tous les trajets)
 
+        void ImporterTypeSauvegarde(const int type);
+        // Mode d'emploi :
+        //      Import de trajets à partir d'un fichier de sauvegarde (trajets filtrer par type)
+
+        void ImporterVilleSauvegarde(const char* depart, const char* arrivee);
+        // Mode d'emploi :
+        //      Import de trajets à partir d'un fichier de sauvegarde (trajets filtrer par ville)
+
+        void ImporterSelectionSauvegarde(const int debut, const int fin);
+        // Mode d'emploi :
+        //      Import de trajets à partir d'un fichier de sauvegarde (selection par rapport aux index)
         
 
 
