@@ -104,6 +104,120 @@ const char *Collection::GetDerniereVille()
     return trajets[nbTrajets - 1]->GetVilleArr();
 }
 
+void Collection::SauvegarderTout() const
+{
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    int nbSimple = 0;
+    int nbCompose = 0;
+
+    // Compter les types de trajets
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if (trajets[i]->getType() == Trajet::SIMPLE)
+        {
+            nbSimple++;
+        }
+        else if (trajets[i]->getType() == Trajet::COMPOSE)
+        {
+            nbCompose++;
+        }
+    }
+
+    // Écrire les métadonnées (compteurs)
+    fichier << nbSimple << endl;
+    fichier << nbCompose << endl;
+
+    // Sauvegarder les trajets
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        trajets[i]->Sauvegarder(fichier);
+    }
+
+    fichier.close();
+    cout << "Sauvegarde complète effectuée avec succès." << endl;
+}
+
+void Collection::SauvegarderParType(int type) const
+{
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if (type == 1 && trajets[i]->getType() == Trajet::SIMPLE)
+        {
+            trajets[i]->Sauvegarder(fichier);
+        }
+        else if (type == 2 && trajets[i]->getType() == Trajet::COMPOSE)
+        {
+            trajets[i]->Sauvegarder(fichier);
+        }
+    }
+
+    fichier.close();
+    cout << "Sauvegarde des trajets de type " << (type == 1 ? "simple" : "composé") << " effectuée avec succès." << endl;
+}
+
+void Collection::SauvegarderPlage(int debut, int fin) const
+{
+    if (debut <= 0 || fin > nbTrajets || debut > fin)
+    {
+        cerr << "Indices de plage invalides." << endl;
+        return;
+    }
+
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    for (int i = debut - 1; i < fin; i++)
+    {
+        trajets[i]->Sauvegarder(fichier);
+    }
+
+    fichier.close();
+    cout << "Sauvegarde de la plage [" << debut << ", " << fin << "] effectuée avec succès." << endl;
+}
+
+void Collection::SauvegarderParVilles(const char *depart, const char *arrivee) const
+{
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if ((depart == nullptr || strcmp(trajets[i]->GetVilleDep(), depart) == 0) &&
+            (arrivee == nullptr || strcmp(trajets[i]->GetVilleArr(), arrivee) == 0))
+        {
+            trajets[i]->Sauvegarder(fichier);
+        }
+    }
+
+    fichier.close();
+    cout << "Sauvegarde des trajets correspondant aux villes spécifiées effectuée avec succès." << endl;
+}
+
 void Collection::ImporterTouteSauvegarde()
 {
     ifstream file;

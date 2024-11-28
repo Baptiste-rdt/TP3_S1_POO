@@ -59,6 +59,26 @@ void Catalogue::ImporterSelectionSauvegarde(const int debut, const int fin)
     c->ImporterSelectionSauvegarde(debut, fin);
 }
 
+void Catalogue::SauvegarderTout() const
+{
+    c->SauvegarderTout();
+}
+
+void Catalogue::SauvegarderParType(int type) const
+{
+    c->SauvegarderParType(type);
+}
+
+void Catalogue::SauvegarderParVilles(const char *depart, const char *arrivee) const
+{
+    c->SauvegarderParVilles(depart, arrivee);
+}
+
+void Catalogue::SauvegarderPlage(int debut, int fin) const
+{
+    c->SauvegarderPlage(debut, fin);
+}
+
 //-------------------------------------------- Constructeurs - destructeur
  
 Catalogue::Catalogue ()

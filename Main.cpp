@@ -76,6 +76,7 @@ static void menu()
         cout << "\t3: Afficher le catalogue" << endl;
         cout << "\t4: Rechercher un trajet" << endl;
         cout << "\t5: Importer une sauvegarde" << endl;
+        cout << "\t6: Sauvegarder le catalogue" << endl;
         cout << "\t0: Quitter" << endl;
         int choix;
         cin >> choix;
@@ -129,6 +130,11 @@ static void menu()
         case 5:
         {
             MenuImport(c);
+            break;
+        }
+        case 6:
+        {
+            MenuSauvegarde(c);
             break;
         }
         default:
@@ -245,6 +251,122 @@ static void MenuImportSelection(Catalogue *c)
         c->ImporterSelectionSauvegarde(debut, fin);
     }
 }
+
+static void MenuSauvegarde(Catalogue *c)
+{
+    cout << "\t1: Sauvegarder tout le catalogue" << endl;
+    cout << "\t2: Sauvegarder seulement un type de trajet" << endl;
+    cout << "\t3: Sauvegarder selon la ville de départ/arrivée" << endl;
+    cout << "\t4: Sauvegarder une sélection" << endl;
+    cout << "\t0: Retour" << endl;
+
+    int choix;
+    cin >> choix;
+
+    switch (choix)
+    {
+    case 0:
+        break;
+    case 1:
+        c->SauvegarderTout();
+        break;
+    case 2:
+        MenuSauvegardeType(c);
+        break;
+    case 3:
+        MenuSauvegardeVille(c);
+        break;
+    case 4:
+        MenuSauvegardeSelection(c);
+        break;
+    default:
+        cout << "Choix incorrect" << endl;
+        MenuSauvegarde(c);
+        break;
+    }
+}
+
+static void MenuSauvegardeType(Catalogue *c)
+{
+    cout << "Quel type souhaitez-vous sauvegarder ?" << endl;
+    cout << "\t1: Trajet Simple" << endl;
+    cout << "\t2: Trajet Composé" << endl;
+    cout << "\t0: Retour" << endl;
+
+    int choix;
+    cin >> choix;
+
+    switch (choix)
+    {
+    case 0:
+        break;
+    case 1:
+        c->SauvegarderParType(1);
+        break;
+    case 2:
+        c->SauvegarderParType(2);
+        break;
+    default:
+        cout << "Choix incorrect" << endl;
+        MenuSauvegardeType(c);
+        break;
+    }
+}
+
+static void MenuSauvegardeVille(Catalogue *c)
+{
+    char depart[TAILLE];
+    char arrivee[TAILLE];
+
+    cin.ignore();
+    cout << "Quelle ville de départ ? (vide pour toutes)" << endl;
+    cin.getline(depart, TAILLE);
+    cout << "Quelle ville d'arrivée ? (vide pour toutes)" << endl;
+    cin.getline(arrivee, TAILLE);
+
+    if (depart[0] == '\0')
+    {
+        strcpy(depart, "");
+    }
+    if (arrivee[0] == '\0')
+    {
+        strcpy(arrivee, "");
+    }
+
+    c->SauvegarderParVilles(depart, arrivee);
+}
+
+static void MenuSauvegardeSelection(Catalogue *c)
+{
+    int debut, fin;
+
+    cout << "Quel est l'indice de début de la sélection ? (-1 pour annuler)" << endl;
+    cin >> debut;
+    if (debut == -1)
+    {
+        cout << "Opération annulée." << endl;
+        return;
+    }
+
+    cout << "Quel est l'indice de fin de la sélection ? (-1 pour annuler)" << endl;
+    cin >> fin;
+    if (fin == -1)
+    {
+        cout << "Opération annulée." << endl;
+        return;
+    }
+
+    if (debut <= 0 || fin < debut)
+    {
+        cout << "Indices invalides. Veuillez réessayer." << endl;
+        MenuSauvegardeSelection(c);
+    }
+    else
+    {
+        c->SauvegarderPlage(debut, fin);
+    }
+}
+
 
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques

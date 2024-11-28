@@ -12,6 +12,7 @@
 //-------------------------------------------------------- Include systéme
 using namespace std;
 #include <iostream>
+#include <fstream>
 
 //------------------------------------------------------ Include personnel
 #include "TrajetCompose.h"
@@ -40,6 +41,13 @@ void TrajetCompose::Afficher()
 void TrajetCompose::Ajouter(Trajet *t)
 {
     c->Ajouter(t);
+}
+
+void TrajetCompose::Sauvegarder(ofstream &fichier) const
+{
+    fichier << "{" << endl;
+    c->SauvegarderTout(); // Utilisation récursive de Sauvegarder
+    fichier << "}" << endl;
 }
 
 //-------------------------------------------- Constructeurs - destructeur

@@ -57,7 +57,11 @@ class Catalogue
         // Mode d'emploi :
         //      Import de trajets à partir d'un fichier de sauvegarde (selection par rapport aux index)
         
-
+        // Sauvegarde
+        void SauvegarderTout() const;               // Sauvegarde tout le catalogue
+        void SauvegarderParType(int type) const;    // Sauvegarde uniquement un type de trajet
+        void SauvegarderParVilles(const char *depart, const char *arrivee) const; // Sauvegarde selon villes
+        void SauvegarderPlage(int debut, int fin) const; // Sauvegarde une plage d'indices
 
     //-------------------------------------------- Constructeurs - destructeur
 

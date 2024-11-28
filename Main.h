@@ -50,4 +50,9 @@ static void MenuImportSelection(Catalogue* c);
 // Mode d'emploi :
 //    Affiche le menu lié à l'import d'une sélection
 
+static void MenuSauvegarde(Catalogue *c);
+static void MenuSauvegardeType(Catalogue *c);
+static void MenuSauvegardeVille(Catalogue *c);
+static void MenuSauvegardeSelection(Catalogue *c);
+
 #endif // MAIN

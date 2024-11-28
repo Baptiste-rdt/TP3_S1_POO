@@ -65,6 +65,31 @@ public:
     // Contrat :
     //      Méthode utile pour importer des trajets d'un fichier vers une collection
 
+    void SauvegarderTout() const;
+    // Mode d'emploi :
+    //      Sauvegarde tous les trajets de la collection dans un fichier
+    // Contrat :
+    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier
+
+    void SauvegarderParType(int type) const;
+    // Mode d'emploi :
+    //      Sauvegarde les trajets de la collection dans un fichier (seulement les trajets du type)
+    // Contrat :
+    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier avec un filtre sur les types
+
+    void SauvegarderPlage(int debut, int fin) const;
+    // Mode d'emploi :
+    //      Sauvegarde les trajets de la collection dans un fichier (seulement les index souhaités)
+    // Contrat :
+    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier avec un filtre sur les index
+
+    void SauvegarderParVilles(const char *depart, const char *arrivee) const;
+    // Mode d'emploi :
+    //      Sauvegarde les trajets de la collection dans un fichier (seulement les
+    //      trajets avec les villes demandées)
+    // Contrat :
+    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier avec un filtre sur les villes
+    
     void ImporterTypeSauvegarde(const int type);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier et du type souhaité (seulement les trajets du type)
