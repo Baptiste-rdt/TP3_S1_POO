@@ -37,17 +37,16 @@ TrajetCompose *creerTrajetCompose()
     TrajetCompose *t = new TrajetCompose();
     cout << "Veuillez entrer le nombre de trajets (simple) constituant votre trajet composé : ";
     cin >> nbTrajets;
+    cin.ignore(); // Clear the input buffer
     cout << endl;
     for (int i = 0; i < nbTrajets; i++)
     {
         cout << "\tVeuillez entrer la ville de départ du trajet n°" << i + 1 << ": ";
-        cin >> dep;
-        cout << endl
-             << "\tVeuillez entrer la ville d'arrivée du trajet n°" << i + 1 << ": ";
-        cin >> arr;
-        cout << endl
-             << "\tVeuillez entrer le moyen de transport du trajet n°" << i + 1 << ": ";
-        cin >> transport;
+        cin.getline(dep, TAILLE);
+        cout << "\tVeuillez entrer la ville d'arrivée du trajet n°" << i + 1 << ": ";
+        cin.getline(arr, TAILLE);
+        cout << "\tVeuillez entrer le moyen de transport du trajet n°" << i + 1 << ": ";
+        cin.getline(transport, TAILLE);
         cout << endl;
 
         TrajetSimple *ts = new TrajetSimple(dep, arr, transport);
@@ -57,12 +56,6 @@ TrajetCompose *creerTrajetCompose()
 }
 
 static void menu()
-// Mode d'emploi :
-//
-// Contrat :
-//
-// Algorithme :
-//
 {
     Catalogue *c = new Catalogue();
     char dep[TAILLE];
@@ -80,6 +73,7 @@ static void menu()
         cout << "\t0: Quitter" << endl;
         int choix;
         cin >> choix;
+        cin.ignore(); // pour éviter les problèmes de lecture de chaînes
         switch (choix)
         {
         case 0:
@@ -89,13 +83,11 @@ static void menu()
         case 1:
         {
             cout << "Veuillez entrer la ville de départ : ";
-            cin >> dep;
-            cout << endl
-                 << "Veuillez entrer la ville d'arrivée : ";
-            cin >> arr;
-            cout << endl
-                 << "Veuillez entrer le moyen de transport : ";
-            cin >> transport;
+            cin.getline(dep, TAILLE);
+            cout << "Veuillez entrer la ville d'arrivée : ";
+            cin.getline(arr, TAILLE);
+            cout << "Veuillez entrer le moyen de transport : ";
+            cin.getline(transport, TAILLE);
 
             TrajetSimple *ts = new TrajetSimple(dep, arr, transport);
             c->Ajouter(ts);
@@ -115,10 +107,10 @@ static void menu()
         case 4:
         {
             cout << "Veuillez entrer la ville de départ : ";
-            cin >> dep;
-            cout << endl
-                 << "Veuillez entrer la ville d'arrivée : ";
-            cin >> arr;
+            cin.getline(dep, TAILLE);
+            cout << "Veuillez entrer la ville d'arrivée : ";
+            cin.getline(arr, TAILLE);
+
             const Collection *coll = c->RechercherTrajet(dep, arr);
 
             cout << (coll->EstVide() ? "Aucun trajet ne correspond à votre demande" : "Voici les différents trajets correspondants à votre recherche : ") << endl
@@ -144,7 +136,7 @@ static void menu()
         }
         }
     }
-} //----- fin de nom
+}
 
 static void MenuImport(Catalogue *c)
 {
@@ -319,9 +311,9 @@ static void MenuSauvegardeVille(Catalogue *c)
     char arrivee[TAILLE];
 
     cin.ignore();
-    cout << "Quelle ville de départ ? (vide pour toutes)" << endl;
+    cout << "Quelle ville de départ ?" << endl;
     cin.getline(depart, TAILLE);
-    cout << "Quelle ville d'arrivée ? (vide pour toutes)" << endl;
+    cout << "Quelle ville d'arrivée ?" << endl;
     cin.getline(arrivee, TAILLE);
 
     if (depart[0] == '\0')

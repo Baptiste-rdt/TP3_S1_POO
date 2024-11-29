@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Interface de la classe <Collection> (fichier ${file_name}) ------
+//---------- Interface de la classe <Collection> (fichier Collection.h) ------
 #if !defined(COLLECTION)
 #define COLLECTION
 
@@ -59,54 +59,50 @@ public:
     // Contrat :
     //      Méthode utile seulement pour la classe TrajetCompose (pour avoir la ville d'arrivée)
 
-    void ImporterTouteSauvegarde();
+    int GetNbTrajets() const;
     // Mode d'emploi :
-    //      Importe une sauvegarde de trajets à partir d'un fichier (tous les trajets)
-    // Contrat :
-    //      Méthode utile pour importer des trajets d'un fichier vers une collection
+    //      Retourne le nombre de trajets dans la collection
 
+    Trajet* GetTrajet(int index) const;
+    // Mode d'emploi :
+    //      Retourne le trajet à l'index donné
+
+    void EcrireMetaDonnees(ofstream &fichier, int type) const; 
+    // Mode d'emploi :
+    //      Ecrit les métadonnées dans un fichier de sauvegarde
+  
     void SauvegarderTout() const;
     // Mode d'emploi :
     //      Sauvegarde tous les trajets de la collection dans un fichier
-    // Contrat :
-    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier
 
     void SauvegarderParType(int type) const;
     // Mode d'emploi :
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les trajets du type)
-    // Contrat :
-    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier avec un filtre sur les types
 
     void SauvegarderPlage(int debut, int fin) const;
     // Mode d'emploi :
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les index souhaités)
-    // Contrat :
-    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier avec un filtre sur les index
 
     void SauvegarderParVilles(const char *depart, const char *arrivee) const;
     // Mode d'emploi :
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les
     //      trajets avec les villes demandées)
-    // Contrat :
-    //      Méthode utile pour sauvegarder des trajets d'une collection vers un fichier avec un filtre sur les villes
+
+    void ImporterTouteSauvegarde();
+    // Mode d'emploi :
+    //      Importe une sauvegarde de trajets à partir d'un fichier (tous les trajets)
     
     void ImporterTypeSauvegarde(const int type);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier et du type souhaité (seulement les trajets du type)
-    // Contrat :
-    //      Méthode utile pour importer des trajets d'un fichier vers une collection avec un filtre sur les types
 
     void ImporterVilleSauvegarde(const char *depart, const char *arrivee);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier (seulement les trajets avec les villes demandées)
-    // Contrat :
-    //      Méthode utile pour importer des trajets d'un fichier vers une collection avec un filtre sur les villes
 
     void ImporterSelectionSauvegarde(const int debut, const int fin);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier (seulement les index souhaités)
-    // Contrat :
-    //      Méthode utile pour importer des trajets d'un fichier vers une collection (uniquement les index souhaités)
 
     //-------------------------------------------- Constructeurs - destructeur
     Collection();

@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Interface de la classe <TrajetCompose> (fichier ${file_name}) ------
+//---------- Interface de la classe <TrajetCompose> (fichier TrajetCompose.h) ------
 #if ! defined ( TRAJETCOMPOSE )
 #define TRAJETCOMPOSE
 

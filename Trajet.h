@@ -45,7 +45,7 @@ public:
     // Mode d'emploi : 
     //      Retourne le type d'un trajet (simple ou compose)
 
-    virtual void Sauvegarder(std::ofstream &fichier) const = 0;
+    virtual void Sauvegarder(ofstream &fichier) const = 0;
     // Mode d'emploi :
     //      Sauvegarde un trajet dans un fichier
 

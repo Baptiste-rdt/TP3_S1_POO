@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Réalisation de la classe <Catalogue> (fichier ${file_name}) -------
+//---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) -------
 
 //---------------------------------------------------------------- INCLUDE
 

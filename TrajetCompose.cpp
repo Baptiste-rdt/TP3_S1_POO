@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Réalisation de la classe <TrajetCompose> (fichier ${file_name}) -------
+//---------- Réalisation de la classe <TrajetCompose> (fichier TrajetCompose.cpp) -------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -46,7 +46,12 @@ void TrajetCompose::Ajouter(Trajet *t)
 void TrajetCompose::Sauvegarder(ofstream &fichier) const
 {
     fichier << "{" << endl;
-    c->SauvegarderTout(); // Utilisation récursive de Sauvegarder
+    // Sauvegarde de chaque sous-trajet
+    for (int i = 0; i < c->GetNbTrajets(); i++)
+    {
+        Trajet *sousTrajet = c->GetTrajet(i);
+        sousTrajet->Sauvegarder(fichier); // Appel polymorphe (simple ou composé)
+    }
     fichier << "}" << endl;
 }
 

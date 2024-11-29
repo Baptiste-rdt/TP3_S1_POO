@@ -51,7 +51,7 @@ void TrajetSimple::Sauvegarder(ofstream &fichier) const
     fichier << villeDep << endl;
     fichier << villeArr << endl;
     fichier << moyenTransport << endl;
-}
+} //----- Fin de Sauvegarder
 
 //-------------------------------------------- Constructeurs - destructeur
 
