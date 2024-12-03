@@ -10,6 +10,8 @@
 /////////////////////////////////////////////////////////////////  INCLUDE
 //-------------------------------------------------------- Include systéme
 #include <iostream>
+#include <cstring>
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
@@ -18,7 +20,6 @@ using namespace std;
 #include "Collection.h"
 #include "TrajetSimple.h"
 #include "TrajetCompose.h"
-#include <cstring>
 
 ///////////////////////////////////////////////////////////////////  PRIVE
 //------------------------------------------------------------- Constantes
@@ -142,6 +143,7 @@ static void menu()
 
 static void MenuImport(Catalogue *c)
 {
+    string* nomFichier = UtiliserFichier();
     cout << "\t1: Importer un fichier complet" << endl;
     cout << "\t2: Importer seulement un type de trajet" << endl;
     cout << "\t3: Importer selon la ville de départ/arrivée" << endl;
@@ -154,25 +156,27 @@ static void MenuImport(Catalogue *c)
     case 0:
         break;
     case 1:
-        c->ImporterTouteSauvegarde();
+        c->ImporterTouteSauvegarde(nomFichier->c_str());
         break;
     case 2:
-        MenuImportType(c);
+        MenuImportType(c, nomFichier->c_str());
         break;
     case 3:
-        MenuImportVille(c);
+        MenuImportVille(c, nomFichier->c_str());
         break;
     case 4:
-        MenuImportSelection(c);
+        MenuImportSelection(c, nomFichier->c_str());
         break;
     default:
         cout << "Choix incorrect" << endl;
         MenuImport(c);
         break;
     }
+
+    delete nomFichier;
 }
 
-static void MenuImportType(Catalogue *c)
+static void MenuImportType(Catalogue *c, const char *nomFichier)
 {
     cout << "Quel type souhaitez-vous importer ?" << endl;
     cout << "\t1: Trajet Simple" << endl;
@@ -185,19 +189,19 @@ static void MenuImportType(Catalogue *c)
     case 0:
         break;
     case 1:
-        c->ImporterTypeSauvegarde(1);
+        c->ImporterTypeSauvegarde(1, nomFichier);
         break;
     case 2:
-        c->ImporterTypeSauvegarde(2);
+        c->ImporterTypeSauvegarde(2, nomFichier);
         break;
     default:
         cout << "Choix incorrect" << endl;
-        MenuImportType(c);
+        MenuImportType(c, nomFichier);
         break;
     }
 }
 
-static void MenuImportVille(Catalogue *c)
+static void MenuImportVille(Catalogue *c, const char *nomFichier)
 {
     char depart[TAILLE];
     char arrivee[TAILLE];
@@ -214,10 +218,10 @@ static void MenuImportVille(Catalogue *c)
     {
         strcpy(arrivee, "");
     }
-    c->ImporterVilleSauvegarde(depart, arrivee);
+    c->ImporterVilleSauvegarde(depart, arrivee, nomFichier);
 }
 
-static void MenuImportSelection(Catalogue *c)
+static void MenuImportSelection(Catalogue *c, const char *nomFichier)
 {
     int debut;
     int fin;
@@ -225,7 +229,7 @@ static void MenuImportSelection(Catalogue *c)
     cin.ignore();
     cout << "Quel indice de départ de sélection ? (-1 pour annuler l'opération)" << endl;
     cin >> debut;
-    if(debut == -1)
+    if (debut == -1)
     {
         cout << "Opération annulée" << endl;
         return;
@@ -242,8 +246,48 @@ static void MenuImportSelection(Catalogue *c)
     }
     else
     {
-        c->ImporterSelectionSauvegarde(debut, fin);
+        c->ImporterSelectionSauvegarde(debut, fin, nomFichier);
     }
+}
+
+static string* UtiliserFichier()
+{
+    string *chemin = new string(); // Allouer dynamiquement une chaîne pour garantir sa persistance
+    cout << "Quel fichier souhaitez-vous utiliser ? (chemin d'accès)" << endl;
+    cin >> *chemin;
+
+    if (chemin->empty())
+    {
+        cout << "Chemin vide ! Opération annulée." << endl;
+        delete chemin; // Libération mémoire en cas d'annulation
+        return nullptr;
+    }
+
+    ifstream file(chemin->c_str());
+
+    if (!file.is_open())
+    {
+        cout << "Fichier introuvable. Création du fichier..." << endl;
+        ofstream fichierSortie(chemin->c_str()); // Crée le fichier
+        if (!fichierSortie.is_open())
+        {
+            cout << "Impossible de créer le fichier. Opération annulée." << endl;
+            delete chemin; // Libération mémoire en cas d'annulation
+            return nullptr;
+        }
+        fichierSortie.close();
+    }
+
+    file.open(chemin->c_str());
+    if (!file.is_open())
+    {
+        cout << "Erreur lors de l'ouverture du fichier. Opération annulée." << endl;
+        delete chemin; // Libération mémoire en cas d'annulation
+        return nullptr;
+    }
+
+    file.close();
+    return chemin; // Retourne le pointeur vers la chaîne
 }
 
 //////////////////////////////////////////////////////////////////  PUBLIC

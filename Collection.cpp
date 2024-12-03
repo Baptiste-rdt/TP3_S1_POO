@@ -10,18 +10,17 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include systéme
-using namespace std;
 #include <iostream>
+#include <cstring>
+#include <fstream>
+#include <string>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Collection.h"
 #include "Trajet.h"
 #include "TrajetCompose.h"
 #include "TrajetSimple.h"
-#include <cstring>
-#include <fstream>
-#include <iostream>
-#include <string>
 
 //------------------------------------------------------------- Constantes
 const char *FICHIER_SAUVEGARDE = "ressources/sauvegarde.txt";
@@ -104,35 +103,35 @@ const char *Collection::GetDerniereVille()
     return trajets[nbTrajets - 1]->GetVilleArr();
 }
 
-void Collection::ImporterTouteSauvegarde()
+void Collection::ImporterTouteSauvegarde(const char* nomFichier)
 {
-    ifstream file;
+    ifstream fichier;
 
     const int TAILLE_MAX = 50;
     char ligne[TAILLE_MAX];
 
-    file.open(FICHIER_SAUVEGARDE);
+    fichier.open(nomFichier);
 
-    while (file.getline(ligne, TAILLE_MAX))
+    while (fichier.getline(ligne, TAILLE_MAX))
     {
         if (ligne[0] == '#')
         {
-            Trajet *trajet = this->LireTrajetSimple(file);
+            Trajet *trajet = this->LireTrajetSimple(fichier);
             this->Ajouter(trajet);
         }
         else if (ligne[0] == '{')
         {
-            Trajet *trajet = this->LireTrajetCompose(file);
+            Trajet *trajet = this->LireTrajetCompose(fichier);
             this->Ajouter(trajet);
         }
     }
 
-    file.close();
+    fichier.close();
 }
 
-void Collection::ImporterTypeSauvegarde(const int type)
+void Collection::ImporterTypeSauvegarde(const int type, const char* nomFichier)
 {
-    ifstream file;
+    ifstream fichier;
 
     const int TAILLE_MAX = 50;
     char ligne[TAILLE_MAX];
@@ -141,12 +140,12 @@ void Collection::ImporterTypeSauvegarde(const int type)
     int nbType = 0;
     int estCompose = 0;
 
-    file.open(FICHIER_SAUVEGARDE);
+    fichier.open(nomFichier);
 
     // Récupération du nombre de trajet de chaque type
     for (int i = 1; i < 3; i++)
     {
-        file.getline(ligne, TAILLE_MAX);
+        fichier.getline(ligne, TAILLE_MAX);
         switch (i)
         {
         case 1:
@@ -169,20 +168,20 @@ void Collection::ImporterTypeSauvegarde(const int type)
         break;
     }
 
-    while (file.getline(ligne, TAILLE_MAX) && nbType > 0)
+    while (fichier.getline(ligne, TAILLE_MAX) && nbType > 0)
     {
         if (ligne[0] == '#')
         {
             if (type == 1 && estCompose == 0)
             {
-                Trajet *trajet = this->LireTrajetSimple(file);
+                Trajet *trajet = this->LireTrajetSimple(fichier);
                 this->Ajouter(trajet);
             }
             else
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    file.getline(ligne, TAILLE_MAX);
+                    fichier.getline(ligne, TAILLE_MAX);
                 }
             }
         }
@@ -190,7 +189,7 @@ void Collection::ImporterTypeSauvegarde(const int type)
         {
             if (type == 2)
             {
-                Trajet *trajet = this->LireTrajetCompose(file);
+                Trajet *trajet = this->LireTrajetCompose(fichier);
                 this->Ajouter(trajet);
             }
             else
@@ -204,7 +203,7 @@ void Collection::ImporterTypeSauvegarde(const int type)
         }
     }
 
-    file.close();
+    fichier.close();
 }
 
 void trim(char *chaine)
@@ -228,24 +227,24 @@ void trim(char *chaine)
     }
 }
 
-void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee)
+void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee, const char* nomFichier)
 {
-    ifstream file;
+    ifstream fichier;
 
     const int TAILLE_MAX = 50;
     char ligne[TAILLE_MAX];
     int estCompose = 0;
     streampos position;
 
-    file.open(FICHIER_SAUVEGARDE);
+    fichier.open(nomFichier);
 
-    while (file.getline(ligne, TAILLE_MAX))
+    while (fichier.getline(ligne, TAILLE_MAX))
     {
-        position = file.tellg();
+        position = fichier.tellg();
         bool estValide = true;
         if (ligne[0] == '#')
         {
-            file.getline(ligne, TAILLE_MAX);
+            fichier.getline(ligne, TAILLE_MAX);
             trim(ligne);
             if (strcmp(depart, "") != 0)
             {
@@ -254,7 +253,7 @@ void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee
                     estValide = false;
                 }
             }
-            file.getline(ligne, TAILLE_MAX);
+            fichier.getline(ligne, TAILLE_MAX);
             trim(ligne);
             if (strcmp(arrivee, "") != 0)
             {
@@ -265,19 +264,19 @@ void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee
             }
             if (estValide)
             {
-                file.seekg(position);
-                Trajet *trajet = this->LireTrajetSimple(file);
+                fichier.seekg(position);
+                Trajet *trajet = this->LireTrajetSimple(fichier);
                 this->Ajouter(trajet);
             }
             else
             {
-                file.getline(ligne, TAILLE_MAX);
+                fichier.getline(ligne, TAILLE_MAX);
             }
         }
         else if (ligne[0] == '{')
         {
             estCompose++;
-            file.getline(ligne, TAILLE_MAX);
+            fichier.getline(ligne, TAILLE_MAX);
             trim(ligne);
             if (strcmp(depart, ""))
             {
@@ -286,7 +285,7 @@ void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee
                     estValide = false;
                 }
             }
-            file.getline(ligne, TAILLE_MAX);
+            fichier.getline(ligne, TAILLE_MAX);
             trim(ligne);
             if (strcmp(arrivee, ""))
             {
@@ -297,15 +296,15 @@ void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee
             }
             if (estValide)
             {
-                file.seekg(position);
-                Trajet *trajet = this->LireTrajetCompose(file);
+                fichier.seekg(position);
+                Trajet *trajet = this->LireTrajetCompose(fichier);
                 this->Ajouter(trajet);
             }
             else
             {
                 while (estCompose > 0)
                 {
-                    file.getline(ligne, TAILLE_MAX);
+                    fichier.getline(ligne, TAILLE_MAX);
                     if (ligne[0] == '{')
                     {
                         estCompose++;
@@ -319,12 +318,12 @@ void Collection::ImporterVilleSauvegarde(const char *depart, const char *arrivee
         }
     }
 
-    file.close();
+    fichier.close();
 }
 
-void Collection::ImporterSelectionSauvegarde(const int debut, const int fin)
+void Collection::ImporterSelectionSauvegarde(const int debut, const int fin, const char* nomFichier)
 {
-    ifstream file;
+    ifstream fichier;
 
     const int TAILLE_MAX = 50;
     char ligne[TAILLE_MAX];
@@ -332,11 +331,11 @@ void Collection::ImporterSelectionSauvegarde(const int debut, const int fin)
     int nbSimple = 0;
     int nbCompose = 0;
 
-    file.open(FICHIER_SAUVEGARDE);
+    fichier.open(nomFichier);
 
     for (int i = 1; i < 3; i++)
     {
-        file.getline(ligne, TAILLE_MAX);
+        fichier.getline(ligne, TAILLE_MAX);
         switch (i)
         {
         case 1:
@@ -350,14 +349,14 @@ void Collection::ImporterSelectionSauvegarde(const int debut, const int fin)
 
     if (debut <= (nbSimple + nbCompose))
     {
-        while (file.getline(ligne, TAILLE_MAX) && indexCourant <= fin)
+        while (fichier.getline(ligne, TAILLE_MAX) && indexCourant <= fin)
         {
             if (ligne[0] == '#')
             {
                 indexCourant++;
                 if (indexCourant >= debut && indexCourant <= fin)
                 {
-                    Trajet *trajet = this->LireTrajetSimple(file);
+                    Trajet *trajet = this->LireTrajetSimple(fichier);
                     this->Ajouter(trajet);
                 }
             }
@@ -366,14 +365,14 @@ void Collection::ImporterSelectionSauvegarde(const int debut, const int fin)
                 indexCourant++;
                 if (indexCourant >= debut && indexCourant <= fin)
                 {
-                    Trajet *trajet = this->LireTrajetCompose(file);
+                    Trajet *trajet = this->LireTrajetCompose(fichier);
                     this->Ajouter(trajet);
                 }
             }
         }
     }
 
-    file.close();
+    fichier.close();
 }
 
 //-------------------------------------------- Constructeurs - destructeur
