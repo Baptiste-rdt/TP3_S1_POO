@@ -290,6 +290,7 @@ static string* UtiliserFichier()
 
 static void MenuSauvegarde(Catalogue *c)
 {
+    string* nomFichier = UtiliserFichier();
     cout << "\t1: Sauvegarder tout le catalogue" << endl;
     cout << "\t2: Sauvegarder seulement un type de trajet" << endl;
     cout << "\t3: Sauvegarder selon la ville de départ/arrivée" << endl;
@@ -304,16 +305,16 @@ static void MenuSauvegarde(Catalogue *c)
     case 0:
         break;
     case 1:
-        c->SauvegarderTout();
+        c->SauvegarderTout(nomFichier->c_str());
         break;
     case 2:
-        MenuSauvegardeType(c);
+        MenuSauvegardeType(c, nomFichier->c_str());
         break;
     case 3:
-        MenuSauvegardeVille(c);
+        MenuSauvegardeVille(c, nomFichier->c_str());
         break;
     case 4:
-        MenuSauvegardeSelection(c);
+        MenuSauvegardeSelection(c, nomFichier->c_str());
         break;
     default:
         cout << "Choix incorrect" << endl;
@@ -322,7 +323,7 @@ static void MenuSauvegarde(Catalogue *c)
     }
 }
 
-static void MenuSauvegardeType(Catalogue *c)
+static void MenuSauvegardeType(Catalogue *c, const char* nomFichier)
 {
     cout << "Quel type souhaitez-vous sauvegarder ?" << endl;
     cout << "\t1: Trajet Simple" << endl;
@@ -337,19 +338,19 @@ static void MenuSauvegardeType(Catalogue *c)
     case 0:
         break;
     case 1:
-        c->SauvegarderParType(1);
+        c->SauvegarderParType(1, nomFichier);
         break;
     case 2:
-        c->SauvegarderParType(2);
+        c->SauvegarderParType(2, nomFichier);
         break;
     default:
         cout << "Choix incorrect" << endl;
-        MenuSauvegardeType(c);
+        MenuSauvegardeType(c, nomFichier);
         break;
     }
 }
 
-static void MenuSauvegardeVille(Catalogue *c)
+static void MenuSauvegardeVille(Catalogue *c, const char* nomFichier)
 {
     char depart[TAILLE];
     char arrivee[TAILLE];
@@ -369,10 +370,10 @@ static void MenuSauvegardeVille(Catalogue *c)
         strcpy(arrivee, "");
     }
 
-    c->SauvegarderParVilles(depart, arrivee);
+    c->SauvegarderParVilles(depart, arrivee, nomFichier);
 }
 
-static void MenuSauvegardeSelection(Catalogue *c)
+static void MenuSauvegardeSelection(Catalogue *c, const char* nomFichier)
 {
     int debut, fin;
 
@@ -395,11 +396,11 @@ static void MenuSauvegardeSelection(Catalogue *c)
     if (debut <= 0 || fin < debut)
     {
         cout << "Indices invalides. Veuillez réessayer." << endl;
-        MenuSauvegardeSelection(c);
+        MenuSauvegardeSelection(c, nomFichier);
     }
     else
     {
-        c->SauvegarderPlage(debut, fin);
+        c->SauvegarderPlage(debut, fin, nomFichier);
     }
 }
 

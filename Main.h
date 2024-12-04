@@ -54,15 +54,15 @@ static void MenuSauvegarde(Catalogue *c);
 // Mode d'emploi :
 //    Affiche le menu lié à la sauvegarde
 
-static void MenuSauvegardeType(Catalogue *c);
+static void MenuSauvegardeType(Catalogue *c, const char* nomFichier);
 // Mode d'emploi :
 //    Affiche le menu lié à la sauvegarde par type
 
-static void MenuSauvegardeVille(Catalogue *c);
+static void MenuSauvegardeVille(Catalogue *c, const char* nomFichier);
 // Mode d'emploi :
 //    Affiche le menu lié à la sauvegarde par ville
 
-static void MenuSauvegardeSelection(Catalogue *c);
+static void MenuSauvegardeSelection(Catalogue *c, const char* nomFichier);
 // Mode d'emploi :
 //    Affiche le menu lié à la sauvegarde d'une sélection
 

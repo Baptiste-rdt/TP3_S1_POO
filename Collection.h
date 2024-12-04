@@ -71,19 +71,19 @@ public:
     // Mode d'emploi :
     //      Ecrit les métadonnées dans un fichier de sauvegarde
   
-    void SauvegarderTout() const;
+    void SauvegarderTout(const char* nomFichier) const;
     // Mode d'emploi :
     //      Sauvegarde tous les trajets de la collection dans un fichier
 
-    void SauvegarderParType(int type) const;
+    void SauvegarderParType(int type, const char* nomFichier) const;
     // Mode d'emploi :
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les trajets du type)
 
-    void SauvegarderPlage(int debut, int fin) const;
+    void SauvegarderPlage(int debut, int fin, const char* nomFichier) const;
     // Mode d'emploi :
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les index souhaités)
 
-    void SauvegarderParVilles(const char *depart, const char *arrivee) const;
+    void SauvegarderParVilles(const char *depart, const char *arrivee, const char* nomFichier) const;
     // Mode d'emploi :
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les
     //      trajets avec les villes demandées)

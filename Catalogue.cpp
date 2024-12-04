@@ -59,24 +59,24 @@ void Catalogue::ImporterSelectionSauvegarde(const int debut, const int fin, cons
     c->ImporterSelectionSauvegarde(debut, fin, nomFichier);
 }
 
-void Catalogue::SauvegarderTout() const
+void Catalogue::SauvegarderTout(const char* nomFichier) const
 {
-    c->SauvegarderTout();
+    c->SauvegarderTout(nomFichier);
 }
 
-void Catalogue::SauvegarderParType(int type) const
+void Catalogue::SauvegarderParType(int type, const char* nomFichier) const
 {
-    c->SauvegarderParType(type);
+    c->SauvegarderParType(type, nomFichier);
 }
 
-void Catalogue::SauvegarderParVilles(const char *depart, const char *arrivee) const
+void Catalogue::SauvegarderParVilles(const char *depart, const char *arrivee, const char* nomFichier) const
 {
-    c->SauvegarderParVilles(depart, arrivee);
+    c->SauvegarderParVilles(depart, arrivee, nomFichier);
 }
 
-void Catalogue::SauvegarderPlage(int debut, int fin) const
+void Catalogue::SauvegarderPlage(int debut, int fin, const char* nomFichier) const
 {
-    c->SauvegarderPlage(debut, fin);
+    c->SauvegarderPlage(debut, fin, nomFichier);
 }
 
 //-------------------------------------------- Constructeurs - destructeur

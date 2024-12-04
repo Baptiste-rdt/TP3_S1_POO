@@ -57,19 +57,19 @@ class Catalogue
         // Mode d'emploi :
         //      Import de trajets à partir d'un fichier de sauvegarde (selection par rapport aux index)
         
-        void SauvegarderTout() const;
+        void SauvegarderTout(const char* nomFichier) const;
         // Mode d'emploi :
         //      Sauvegarde tous les trajets du catalogue dans un fichier
 
-        void SauvegarderParType(int type) const;
+        void SauvegarderParType(int type, const char* nomFichier) const;
         // Mode d'emploi :
         //      Sauvegarde les trajets du catalogue dans un fichier (seulement les trajets du type)
 
-        void SauvegarderParVilles(const char *depart, const char *arrivee) const;
+        void SauvegarderParVilles(const char *depart, const char *arrivee, const char* nomFichier) const;
         // Mode d'emploi :
         //      Sauvegarde les trajets du catalogue dans un fichier (seulement les trajets avec les villes demandées)
 
-        void SauvegarderPlage(int debut, int fin) const;
+        void SauvegarderPlage(int debut, int fin, const char* nomFichier) const;
         // Mode d'emploi :
         //      Sauvegarde les trajets du catalogue dans un fichier (seulement les index souhaités)
 

@@ -23,7 +23,7 @@ using namespace std;
 #include "TrajetSimple.h"
 
 //------------------------------------------------------------- Constantes
-const char *FICHIER_SAUVEGARDE = "ressources/sauvegarde.txt";
+
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -139,9 +139,9 @@ void Collection::EcrireMetaDonnees(ofstream &fichier, int type) const
     fichier << nbComposes << endl;
 }
 
-void Collection::SauvegarderTout() const
+void Collection::SauvegarderTout(const char* nomFichier) const
 {
-    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+    ofstream fichier(nomFichier, ios::out);
 
     if (!fichier)
     {
@@ -162,9 +162,9 @@ void Collection::SauvegarderTout() const
     cout << "Sauvegarde complète effectuée avec succès." << endl;
 }
 
-void Collection::SauvegarderParType(int type) const
+void Collection::SauvegarderParType(int type, const char* nomFichier) const
 {
-    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+    ofstream fichier(nomFichier, ios::out);
 
     if (!fichier)
     {
@@ -191,7 +191,7 @@ void Collection::SauvegarderParType(int type) const
          << " effectuée avec succès." << endl;
 }
 
-void Collection::SauvegarderPlage(int debut, int fin) const
+void Collection::SauvegarderPlage(int debut, int fin, const char* nomFichier) const
 {
     if (debut <= 0 || fin > nbTrajets || debut > fin)
     {
@@ -199,7 +199,7 @@ void Collection::SauvegarderPlage(int debut, int fin) const
         return;
     }
 
-    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+    ofstream fichier(nomFichier, ios::out);
 
     if (!fichier)
     {
@@ -237,9 +237,9 @@ void Collection::SauvegarderPlage(int debut, int fin) const
     cout << "Sauvegarde de la plage [" << debut << ", " << fin << "] effectuée avec succès." << endl;
 }
 
-void Collection::SauvegarderParVilles(const char *depart, const char *arrivee) const
+void Collection::SauvegarderParVilles(const char *depart, const char *arrivee, const char* nomFichier) const
 {
-    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+    ofstream fichier(nomFichier, ios::out);
 
     if (!fichier)
     {
