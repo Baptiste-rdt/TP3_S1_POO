@@ -38,15 +38,15 @@ static void MenuImport(Catalogue* c);
 // Mode d'emploi :
 //    Affiche le menu lié à l'import
 
-static void MenuImportType(Catalogue* c);
+static void MenuImportType(Catalogue* c, const char* nomFichier);
 // Mode d'emploi :
 //    Affiche le menu lié à l'import par type
 
-static void MenuImportVille(Catalogue* c);
+static void MenuImportVille(Catalogue* c, const char* nomFichier);
 // Mode d'emploi :
 //    Affiche le menu lié à l'import par ville
 
-static void MenuImportSelection(Catalogue* c);
+static void MenuImportSelection(Catalogue* c, const char* nomFichier);
 // Mode d'emploi :
 //    Affiche le menu lié à l'import d'une sélection
 
@@ -65,5 +65,9 @@ static void MenuSauvegardeVille(Catalogue *c);
 static void MenuSauvegardeSelection(Catalogue *c);
 // Mode d'emploi :
 //    Affiche le menu lié à la sauvegarde d'une sélection
+
+static string* UtiliserFichier();
+// Mode d'emploi :
+//    Permet de demander à l'utilisateur de sélectionner un fichier, et l'ouvrir s'il existe, ou le créé
 
 #endif // MAIN

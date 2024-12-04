@@ -39,24 +39,24 @@ const Collection* Catalogue::RechercherTrajet(const char* dep, const char* arr)
     return resultats;
 }
 
-void Catalogue::ImporterTouteSauvegarde()
+void Catalogue::ImporterTouteSauvegarde(const char* nomFichier)
 {
-    c->ImporterTouteSauvegarde();
+    c->ImporterTouteSauvegarde(nomFichier);
 }
 
-void Catalogue::ImporterTypeSauvegarde(const int type)
+void Catalogue::ImporterTypeSauvegarde(const int type, const char* nomFichier)
 {
-    c->ImporterTypeSauvegarde(type);
+    c->ImporterTypeSauvegarde(type, nomFichier);
 }
 
-void Catalogue::ImporterVilleSauvegarde(const char* depart, const char* arrivee)
+void Catalogue::ImporterVilleSauvegarde(const char* depart, const char* arrivee, const char* nomFichier)
 {
-    c->ImporterVilleSauvegarde(depart, arrivee);
+    c->ImporterVilleSauvegarde(depart, arrivee, nomFichier);
 }
 
-void Catalogue::ImporterSelectionSauvegarde(const int debut, const int fin)
+void Catalogue::ImporterSelectionSauvegarde(const int debut, const int fin, const char* nomFichier)
 {
-    c->ImporterSelectionSauvegarde(debut, fin);
+    c->ImporterSelectionSauvegarde(debut, fin, nomFichier);
 }
 
 void Catalogue::SauvegarderTout() const

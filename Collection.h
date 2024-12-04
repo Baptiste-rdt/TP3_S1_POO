@@ -88,19 +88,21 @@ public:
     //      Sauvegarde les trajets de la collection dans un fichier (seulement les
     //      trajets avec les villes demandées)
 
-    void ImporterTouteSauvegarde();
+    void ImporterTouteSauvegarde(const char* nomFichier);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier (tous les trajets)
-    
-    void ImporterTypeSauvegarde(const int type);
+    // Contrat :
+    //      Méthode utile pour importer des trajets d'un fichier vers une collection
+
+    void ImporterTypeSauvegarde(const int type, const char* nomFichier);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier et du type souhaité (seulement les trajets du type)
 
-    void ImporterVilleSauvegarde(const char *depart, const char *arrivee);
+    void ImporterVilleSauvegarde(const char *depart, const char *arrivee, const char* nomFichier);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier (seulement les trajets avec les villes demandées)
 
-    void ImporterSelectionSauvegarde(const int debut, const int fin);
+    void ImporterSelectionSauvegarde(const int debut, const int fin, const char* nomFichier);
     // Mode d'emploi :
     //      Importe une sauvegarde de trajets à partir d'un fichier (seulement les index souhaités)
 
