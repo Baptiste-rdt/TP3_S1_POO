@@ -47,6 +47,10 @@ public:
     // Mode d'emploi : 
     //      Retourne le type de trajet (simple)
 
+    void Sauvegarder(ofstream &fichier) const;
+        // Mode d'emploi :
+        //      Sauvegarde le trajet compose dans un fichier
+        
 //-------------------------------------------- Constructeurs - destructeur
     TrajetSimple ( const char* dep, const char* arr, const char* transport);
     // Mode d'emploi : 

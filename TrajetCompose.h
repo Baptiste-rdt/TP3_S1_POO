@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Interface de la classe <TrajetCompose> (fichier ${file_name}) ------
+//---------- Interface de la classe <TrajetCompose> (fichier TrajetCompose.h) ------
 #if ! defined ( TRAJETCOMPOSE )
 #define TRAJETCOMPOSE
 
@@ -50,6 +50,9 @@ class TrajetCompose : public Trajet
         // Mode d'emploi : 
         //      Renvoie le type de trajet (compose)
 
+        void Sauvegarder(ofstream &fichier) const;
+        // Mode d'emploi :
+        //      Sauvegarde le trajet compose dans un fichier
 
     //-------------------------------------------- Constructeurs - destructeur
         TrajetCompose ( );

@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Interface de la classe <Catalogue> (fichier ${file_name}) ------
+//---------- Interface de la classe <Catalogue> (fichier Catalogue.h) ------
 #if ! defined ( CATALOGUE )
 #define CATALOGUE
 
@@ -57,7 +57,21 @@ class Catalogue
         // Mode d'emploi :
         //      Import de trajets à partir d'un fichier de sauvegarde (selection par rapport aux index)
         
+        void SauvegarderTout() const;
+        // Mode d'emploi :
+        //      Sauvegarde tous les trajets du catalogue dans un fichier
 
+        void SauvegarderParType(int type) const;
+        // Mode d'emploi :
+        //      Sauvegarde les trajets du catalogue dans un fichier (seulement les trajets du type)
+
+        void SauvegarderParVilles(const char *depart, const char *arrivee) const;
+        // Mode d'emploi :
+        //      Sauvegarde les trajets du catalogue dans un fichier (seulement les trajets avec les villes demandées)
+
+        void SauvegarderPlage(int debut, int fin) const;
+        // Mode d'emploi :
+        //      Sauvegarde les trajets du catalogue dans un fichier (seulement les index souhaités)
 
     //-------------------------------------------- Constructeurs - destructeur
 

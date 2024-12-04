@@ -13,6 +13,7 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <fstream>
 
 //------------------------------------------------------ Include personnel
 #include "TrajetSimple.h"
@@ -44,6 +45,13 @@ const char* TrajetSimple::GetTransport ( )
     return moyenTransport;
 } //----- Fin de GetTransport
 
+void TrajetSimple::Sauvegarder(ofstream &fichier) const
+{
+    fichier << "#" << endl;
+    fichier << villeDep << endl;
+    fichier << villeArr << endl;
+    fichier << moyenTransport << endl;
+} //----- Fin de Sauvegarder
 
 //-------------------------------------------- Constructeurs - destructeur
 

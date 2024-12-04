@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Réalisation de la classe <Collection> (fichier ${file_name}) -------
+//---------- Réalisation de la classe <Collection> (fichier Collection.cpp) -------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -101,6 +101,199 @@ const char *Collection::GetDerniereVille()
     if (nbTrajets == 0)
         return NULL;
     return trajets[nbTrajets - 1]->GetVilleArr();
+}
+
+int Collection::GetNbTrajets() const
+{
+    return nbTrajets;
+}
+
+Trajet* Collection::GetTrajet(int index) const
+{
+    if (index >= 0 && index < nbTrajets)
+    {
+        return trajets[index];
+    }
+    return nullptr; // Si l'index est invalide
+}
+
+void Collection::EcrireMetaDonnees(ofstream &fichier, int type) const
+{
+    int nbSimples = 0;
+    int nbComposes = 0;
+
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if ((type == 1 || type == 0) && trajets[i]->getType() == Trajet::SIMPLE)
+        {
+            nbSimples++;
+        }
+
+        if ((type == 2 || type == 0) && trajets[i]->getType() == Trajet::COMPOSE)
+        {
+            nbComposes++;
+        }
+    }
+
+    fichier << nbSimples << endl;
+    fichier << nbComposes << endl;
+}
+
+void Collection::SauvegarderTout() const
+{
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    // Écrire les métadonnées pour tous les types
+    EcrireMetaDonnees(fichier, 0);
+
+    // Sauvegarder tous les trajets
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        trajets[i]->Sauvegarder(fichier);
+    }
+
+    fichier.close();
+    cout << "Sauvegarde complète effectuée avec succès." << endl;
+}
+
+void Collection::SauvegarderParType(int type) const
+{
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    // Écrire les métadonnées pour le type sélectionné
+    EcrireMetaDonnees(fichier, type);
+
+    // Sauvegarder les trajets du type sélectionné
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if ((type == 1 && trajets[i]->getType() == Trajet::SIMPLE) ||
+            (type == 2 && trajets[i]->getType() == Trajet::COMPOSE))
+        {
+            trajets[i]->Sauvegarder(fichier);
+        }
+    }
+
+    fichier.close();
+    cout << "Sauvegarde des trajets de type " 
+         << (type == 1 ? "simple" : "composé") 
+         << " effectuée avec succès." << endl;
+}
+
+void Collection::SauvegarderPlage(int debut, int fin) const
+{
+    if (debut <= 0 || fin > nbTrajets || debut > fin)
+    {
+        cerr << "Indices de plage invalides." << endl;
+        return;
+    }
+
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+
+    int nbSimples = 0;
+    int nbComposes = 0;
+
+    // Compter les types dans la plage sélectionnée
+    for (int i = debut - 1; i < fin; i++)
+    {
+        if (trajets[i]->getType() == Trajet::SIMPLE)
+        {
+            nbSimples++;
+        }
+        else if (trajets[i]->getType() == Trajet::COMPOSE)
+        {
+            nbComposes++;
+        }
+    }
+
+    // Écrire les métadonnées
+    fichier << nbSimples << endl;
+    fichier << nbComposes << endl;
+
+    // Sauvegarder les trajets dans la plage
+    for (int i = debut - 1; i < fin; i++)
+    {
+        trajets[i]->Sauvegarder(fichier);
+    }
+
+    fichier.close();
+    cout << "Sauvegarde de la plage [" << debut << ", " << fin << "] effectuée avec succès." << endl;
+}
+
+void Collection::SauvegarderParVilles(const char *depart, const char *arrivee) const
+{
+    ofstream fichier(FICHIER_SAUVEGARDE, ios::out);
+
+    if (!fichier)
+    {
+        cerr << "Erreur lors de l'ouverture du fichier pour la sauvegarde." << endl;
+        return;
+    }
+    
+    bool trajetTrouve = false;
+
+    // Étape 1 : Compter les trajets correspondants
+    int nbSimples = 0;
+    int nbComposes = 0;
+
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if ((depart == nullptr || strcmp(trajets[i]->GetVilleDep(), depart) == 0) &&
+            (arrivee == nullptr || strcmp(trajets[i]->GetVilleArr(), arrivee) == 0))
+        {
+            if (trajets[i]->getType() == Trajet::SIMPLE)
+            {
+                nbSimples++;
+            }
+            else if (trajets[i]->getType() == Trajet::COMPOSE)
+            {
+                nbComposes++;
+            }
+        }
+    }
+
+    // Étape 2 : Écrire les métadonnées dans le fichier
+    fichier << nbSimples << endl;
+    fichier << nbComposes << endl;
+
+    // Étape 3 : Sauvegarder les trajets correspondants
+    for (int i = 0; i < nbTrajets; i++)
+    {
+        if ((depart == nullptr || strcmp(trajets[i]->GetVilleDep(), depart) == 0) &&
+            (arrivee == nullptr || strcmp(trajets[i]->GetVilleArr(), arrivee) == 0))
+        {
+            trajets[i]->Sauvegarder(fichier);
+            trajetTrouve = true;
+        }
+    }
+
+    fichier.close();
+    
+    if (trajetTrouve)
+    {
+        cout << "Sauvegarde des trajets correspondant aux villes spécifiées effectuée avec succès." << endl;
+    }
+    else
+    {
+        cerr << "Erreur : Aucun trajet ne correspond aux villes spécifiées." << endl;
+    }
 }
 
 void Collection::ImporterTouteSauvegarde(const char* nomFichier)

@@ -5,7 +5,7 @@
     copyright            : (C) ${2024} par ${Eli and Corentin}
 *************************************************************************/
 
-//---------- Réalisation de la classe <Catalogue> (fichier ${file_name}) -------
+//---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) -------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -57,6 +57,26 @@ void Catalogue::ImporterVilleSauvegarde(const char* depart, const char* arrivee,
 void Catalogue::ImporterSelectionSauvegarde(const int debut, const int fin, const char* nomFichier)
 {
     c->ImporterSelectionSauvegarde(debut, fin, nomFichier);
+}
+
+void Catalogue::SauvegarderTout() const
+{
+    c->SauvegarderTout();
+}
+
+void Catalogue::SauvegarderParType(int type) const
+{
+    c->SauvegarderParType(type);
+}
+
+void Catalogue::SauvegarderParVilles(const char *depart, const char *arrivee) const
+{
+    c->SauvegarderParVilles(depart, arrivee);
+}
+
+void Catalogue::SauvegarderPlage(int debut, int fin) const
+{
+    c->SauvegarderPlage(debut, fin);
 }
 
 //-------------------------------------------- Constructeurs - destructeur
